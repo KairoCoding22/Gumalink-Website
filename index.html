@@ -1,0 +1,475 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GumaLink Market Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #f2f4f3;
+      color: #333;
+      padding: 20px;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(to right, #2e7d32, #4caf50);
+      color: white;
+      padding: 18px;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .sub-header {
+      background: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?q=80&w=1200&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 26px;
+      font-weight: 700;
+    }
+
+    .section {
+      padding: 20px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .category {
+      background: #f6f6f6;
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .category:hover {
+      background: #dff0e0;
+      transform: translateY(-3px);
+    }
+
+    .category img {
+      width: 55px;
+      height: 55px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #2e7d32;
+      margin-bottom: 18px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 16px;
+    }
+
+    .product-card {
+      background: #fff;
+      border: 1px solid #e4e4e4;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 14px;
+    }
+
+    .product-info h3 {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+
+    .price {
+      color: #2e7d32;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      width: 100%;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #1b5e20;
+    }
+
+    .dashboard-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .stat {
+      background: linear-gradient(to right, #2e7d32, #43a047);
+      color: white;
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .stat h2 {
+      font-size: 28px;
+    }
+
+    .product-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .list-item img {
+      width: 70px;
+      height: 70px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-right: 12px;
+    }
+
+    .item-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .status {
+      padding: 6px 12px;
+      border-radius: 8px;
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .instock {
+      background: #2e7d32;
+    }
+
+    .soldout {
+      background: #d32f2f;
+    }
+
+    .checkout-box {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .checkout-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .total {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2e7d32;
+      margin-top: 15px;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    label {
+      font-size: 15px;
+    }
+
+    .place-order {
+      margin-top: 15px;
+    }
+
+    @media(max-width: 768px) {
+      .dashboard-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style></head>
+<body>  <div class="container"><!-- MOBILE HOME PAGE -->
+<div class="card">
+  <div class="header">GumaLink Market</div>
+  <div class="sub-header">
+    Buy Fresh, Buy Local in Gumaca!
+  </div>
+
+  <div class="section">
+    <div class="section-title">Categories</div>
+
+    <div class="categories">
+      <div class="category">
+        <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?q=80&w=500&auto=format&fit=crop" alt="Vegetables">
+        <p>Vegetables</p>
+      </div>
+
+      <div class="category">
+        <img src="https://images.unsplash.com/photo-1619566636858-adf3ef46400b?q=80&w=500&auto=format&fit=crop" alt="Fruits">
+        <p>Fruits</p>
+      </div>
+
+      <div class="category">
+        <img src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?q=80&w=500&auto=format&fit=crop" alt="Seafood">
+        <p>Seafood</p>
+      </div>
+
+      <div class="category">
+        <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?q=80&w=500&auto=format&fit=crop" alt="Rice">
+        <p>Rice</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Featured Products</div>
+
+    <div class="products">
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1544943910-4c1dc44aab44?q=80&w=800&auto=format&fit=crop">
+        <div class="product-info">
+          <h3>Fresh Tilapia</h3>
+          <div class="price">₱120/kg</div>
+          <button class="btn">Shop Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?q=80&w=800&auto=format&fit=crop">
+        <div class="product-info">
+          <h3>Organic Tomatoes</h3>
+          <div class="price">₱50/kg</div>
+          <button class="btn">Shop Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT LISTINGS -->
+<div class="card">
+  <div class="header">Product Listings</div>
+
+  <div class="section">
+    <div class="products">
+
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1438118907704-7718ee9a191a?q=80&w=800&auto=format&fit=crop">
+        <div class="product-info">
+          <h3>Eggplant</h3>
+          <div class="price">₱60/kg</div>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=800&auto=format&fit=crop">
+        <div class="product-info">
+          <h3>Sweet Mangoes</h3>
+          <div class="price">₱80/kg</div>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1510130387422-82bed34b37e9?q=80&w=800&auto=format&fit=crop">
+        <div class="product-info">
+          <h3>Fresh Bangus</h3>
+          <div class="price">₱100/kg</div>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?q=80&w=800&auto=format&fit=crop">
+        <div class="product-info">
+          <h3>Tomatoes</h3>
+          <div class="price">₱50/kg</div>
+          <button class="btn">Add to Cart</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SELLER DASHBOARD -->
+<div class="card">
+  <div class="header">Seller Dashboard</div>
+
+  <div class="section">
+    <h2 style="margin-bottom:20px;">Welcome, Juan!</h2>
+
+    <div class="dashboard-stats">
+      <div class="stat">
+        <p>Active Listings</p>
+        <h2>5</h2>
+      </div>
+
+      <div class="stat">
+        <p>Pending Orders</p>
+        <h2>3</h2>
+      </div>
+
+      <div class="stat">
+        <p>Total Earnings</p>
+        <h2>₱8,200</h2>
+      </div>
+    </div>
+
+    <button class="btn" style="margin-bottom:20px;">+ Add New Product</button>
+
+    <div class="product-list">
+
+      <div class="list-item">
+        <div class="item-left">
+          <img src="https://images.unsplash.com/photo-1518843875459-f738682238a6?q=80&w=800&auto=format&fit=crop">
+          <div>
+            <h3>Lettuce</h3>
+            <p>₱40/kg</p>
+          </div>
+        </div>
+        <span class="status instock">In Stock</span>
+      </div>
+
+      <div class="list-item">
+        <div class="item-left">
+          <img src="https://images.unsplash.com/photo-1544943910-4c1dc44aab44?q=80&w=800&auto=format&fit=crop">
+          <div>
+            <h3>Tilapia</h3>
+            <p>₱120/kg</p>
+          </div>
+        </div>
+        <span class="status soldout">Sold Out</span>
+      </div>
+
+      <div class="list-item">
+        <div class="item-left">
+          <img src="https://images.unsplash.com/photo-1553279768-865429fa0078?q=80&w=800&auto=format&fit=crop">
+          <div>
+            <h3>Mangoes</h3>
+            <p>₱80/kg</p>
+          </div>
+        </div>
+        <span class="status instock">In Stock</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT PAGE -->
+<div class="card">
+  <div class="header">Checkout</div>
+
+  <div class="section">
+
+    <div class="checkout-box">
+      <h3 style="margin-bottom:15px;">Order Summary</h3>
+
+      <div class="checkout-row">
+        <span>Fresh Bangus</span>
+        <span>₱300</span>
+      </div>
+
+      <div class="checkout-row">
+        <span>Tomatoes</span>
+        <span>₱100</span>
+      </div>
+
+      <div class="total">Total: ₱400</div>
+    </div>
+
+    <div class="checkout-box">
+      <h3>Delivery Options</h3>
+
+      <div class="radio-group">
+        <label><input type="radio" name="delivery"> Home Delivery</label>
+        <label><input type="radio" name="delivery" checked> Pickup at Market</label>
+      </div>
+    </div>
+
+    <div class="checkout-box">
+      <h3>Payment Method</h3>
+
+      <div class="radio-group">
+        <label><input type="radio" name="payment"> Cash on Delivery</label>
+        <label><input type="radio" name="payment" checked> GCash</label>
+        <label><input type="radio" name="payment"> PayMaya</label>
+      </div>
+    </div>
+
+    <button class="btn place-order">Place Order</button>
+
+  </div>
+</div>
+
+  </div></body>
+</html>
